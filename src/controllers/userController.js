@@ -16,10 +16,19 @@ export async function createUser(req, res) {
   if (error) {
     return res.sendStatus(422);
   }
-  const senhaCriptografada = bcrypt.hashSync(usuario.password, 10);
 
-  await db.collection('usuarios').insertOne({ name: usuario.name,email: usuario.email, password: senhaCriptografada });
-  res.status(201).send('Usuário criado com sucesso');
+  const checksemail = await db.collection('usuarios').findOne({ email: usuario.email });
+  const checksname = await db.collection('usuarios').findOne({ name: usuario.name });
+
+  if(!checksemail){
+    const senhaCriptografada = bcrypt.hashSync(usuario.password, 10);
+
+    await db.collection('usuarios').insertOne({ name: usuario.name,email: usuario.email, password: senhaCriptografada });
+    res.status(201).send('Usuário criado com sucesso');
+  }else{
+    return res.status(401).send('Usuario ou email já cadastrados!');
+  }
+ 
 }
 export async function loginUser(req, res) {
   const usuario = req.body;
