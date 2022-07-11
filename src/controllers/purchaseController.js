@@ -2,7 +2,8 @@ import db from "../db/mongodb.js";
 
 export async function postPurchase(req, res) {
   const purchase = req.body;
-  const { email } = req.headers;
+  const { cpf } = req.headers;
+
   try {
     for (let i = 0; i < purchase.length; i++) {
       let itemPurchased = await db
@@ -19,7 +20,7 @@ export async function postPurchase(req, res) {
         }
       );
       await db.collection("purchases").insertOne({
-        email: email,
+        cpf: cpf,
         purchase: purchase,
       });
     }

@@ -13,3 +13,16 @@ export async function userValidation(req, res, next) {
   }
   next();
 }
+
+export async function addressValidation(req, res, next) {
+  const { cpf } = req.headers;
+  const addressData = await db
+    .collection("paydatas")
+    .findOne({ adress: { cpf } });
+  if (!addressData) {
+    return res
+      .status(404)
+      .send("As informações de pagamento não foram encontradas!");
+  }
+  next();
+}
