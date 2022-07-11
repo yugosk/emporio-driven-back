@@ -7,28 +7,28 @@ export async function adress(req, res) {
   const adressSchema = joi.object({
     name: joi.string().required(),
     surname:joi.string().required(),
-    cpf:joi.number().positive().integer().max(11).required(),
-    cep: joi.number().positive().integer().max(8).required(),
+    cpf:joi.string().length(10).pattern(/^[0-9]+$/).required(),
+    cep: joi.string().length(8).pattern(/^[0-9]+$/).required(),
     street: joi.string().min(5).max(15).required(),
-    numberHome: joi.number().positive().integer().required(),
+    numberHome: joi.string().pattern(/^[0-9]+$/).required(),
     complement:joi.string().max(15),
     district:joi.string().max(29).required(),
     city: joi.string().max(29).required(),
     state: joi.string().max(20).required(),
-    cardNumber: joi.number().positive().integer().max(8).required(),
+    cardNumber: joi.string().length(8).pattern(/^[0-9]+$/).required(),
     cardName:joi.string().required(),
-    cardvality:number().positive().integer().max(6).required(),
-    cardSecnumber: joi.number().positive().integer().max(3).required(),
+    cardvality:joi.string().length(6).pattern(/^[0-9]+$/).required(),
+    cardSecnumber: joi.string().length(3).pattern(/^[0-9]+$/).required(),
 
   });
 
   const { error } = adressSchema.validate(adress);
   if (error) {
-    return res.sendStatus(422);
+    return res.status(422).send("não validou");
   }
   
   try {
-    await db.collection('paydatas').insertOne({usuario});
+    await db.collection('paydatas').insertOne({adress});
     res.status(200).send("Dados cadastrado com sucesso");
   } catch (error) {
     res.status(500).send("Houve um erro ao se conectar ao servidor");
