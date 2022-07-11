@@ -7,11 +7,6 @@ import {
 
 const purchaseRouter = Router();
 
-purchaseRouter.post(
-  "/compras",
-  userValidation,
-  addressValidation,
-  postPurchase
-);
+purchaseRouter.post("/compras", userValidation, postPurchase);
 
 export default purchaseRouter;

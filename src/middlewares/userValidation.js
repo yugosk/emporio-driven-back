@@ -18,7 +18,7 @@ export async function addressValidation(req, res, next) {
   const { cpf } = req.headers;
   const addressData = await db
     .collection("paydatas")
-    .findOne({ adress: { cpf } });
+    .findOne({ adress: { cpf: cpf } });
   if (!addressData) {
     return res
       .status(404)
