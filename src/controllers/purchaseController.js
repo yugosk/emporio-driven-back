@@ -2,7 +2,7 @@ import db from "../db/mongodb.js";
 
 export async function postPurchase(req, res) {
   const purchase = req.body;
-  const email = req.headers;
+  const { email } = req.headers;
   try {
     for (let i = 0; i < purchase.length; i++) {
       let itemPurchased = await db
