@@ -1,9 +1,6 @@
 import { Router } from "express";
 import { postPurchase } from "../controllers/purchaseController.js";
-import {
-  userValidation,
-  addressValidation,
-} from "../middlewares/userValidation.js";
+import { userValidation } from "../middlewares/userValidation.js";
 
 const purchaseRouter = Router();
 
