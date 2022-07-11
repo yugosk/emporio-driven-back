@@ -9,6 +9,6 @@ const productRouter = Router();
 
 productRouter.get("/", getProducts);
 productRouter.get("/:category", getProductsByCategory);
-productRouter.get("/:categoria/:produto", renderProduct);
+productRouter.get("/:category/:product", renderProduct);
 
 export default productRouter;
