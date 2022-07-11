@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { postPurchase } from "../controllers/purchaseController.js";
 
 const purchaseRouter = Router();
 
